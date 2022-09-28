@@ -1,9 +1,11 @@
 import react from "react";
 import { useState, useEffect } from "react";
 
-const TodoForm = () => {
-  const [todo, setTodo] = useState([]);
+const TodoForm = ({ setTodo, todo }) => {
   const [todoValue, setTodoValue] = useState("");
+  const handleSubmit = (e) => {
+    setTodo([...todo, todoValue]);
+  };
   return (
     <form action="" id="todo-form">
       <input
@@ -11,9 +13,16 @@ const TodoForm = () => {
         id="form-input"
         placeholder="please enter your todo"
         onChange={(e) => setTodoValue(e.target.value)}
+        value={todoValue}
       />
-      <button>
-        <i class="fas fa-plus">+</i>
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit();
+          setTodoValue("");
+        }}
+      >
+        <i className="fas fa-plus">+</i>
       </button>
     </form>
   );
